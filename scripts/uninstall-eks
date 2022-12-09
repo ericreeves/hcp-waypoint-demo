@@ -1,0 +1,4 @@
+#!/bin/bash
+waypoint runner uninstall \
+  -platform=kubernetes \
+  -server-addr=api.hashicorp.cloud:443  -id EKS-RUNNER

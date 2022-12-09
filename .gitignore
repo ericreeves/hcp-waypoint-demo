@@ -1,0 +1,8 @@
+.*
+!/.gitignore
+*.tfstate
+*.tfstate.backup
+waypoint-restore.db.lock
+data.db
+examples
+runner_state

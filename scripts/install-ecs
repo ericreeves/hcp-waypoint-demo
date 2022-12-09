@@ -1,0 +1,19 @@
+#!/bin/bash
+pushd ../terraform
+ECS_CLUSTER=$(terraform output -json | jq -r .ecs_cluster_name.value)
+REGION=$(terraform output -json | jq -r .region.value)
+popd
+
+echo "--- Installing to $ECS_CLUSTER in $REGION"
+
+read -p "--- Press Enter to continue, Ctrl-C to abort..."
+
+waypoint runner install \
+  -platform=ecs \
+  -server-addr=api.hashicorp.cloud:443 \
+  -ecs-runner-image=hashicorp/waypoint \
+  -ecs-cluster=${ECS_CLUSTER} \
+  -ecs-region=${REGION} \
+  -id ECS-RUNNER \
+  -- -label=env=ecs
+

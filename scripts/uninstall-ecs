@@ -1,0 +1,12 @@
+#!/bin/bash
+#!/bin/bash
+pushd ../terraform
+ECS_CLUSTER=$(terraform output -json | jq -r .ecs_cluster_name.value)
+REGION=$(terraform output -json | jq -r .region.value)
+popd
+
+waypoint runner uninstall \
+  -platform=ecs \
+  -ecs-cluster=${ECS_CLUSTER} \
+  -ecs-region=${REGION} \
+  -id ECS-RUNNER
